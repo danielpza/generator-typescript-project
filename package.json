@@ -1,7 +1,7 @@
 {
   "name": "generator-typescript-project",
   "version": "1.0.0",
-  "description": "Generate project with typescript, prettier, conventional commits and husky hooks",
+  "description": "Yeoman typescript generator, includes jest, prettier and standard-version",
   "keywords": [
     "typescript",
     "conventional-commits",
