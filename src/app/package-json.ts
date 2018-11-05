@@ -32,5 +32,6 @@ export default () => ({
     "standard-version": "^4.4.0",
     "ts-jest": "^23.10.4",
     typescript: "^3.1.6"
-  }
+  },
+  dependencies: {}
 });
