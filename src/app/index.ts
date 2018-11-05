@@ -33,7 +33,7 @@ module.exports = class extends Generator {
     this.fs.extendJSON(this.destinationPath(file), json);
   };
   copyTpl = (file: string, options: object = {}) => {
-    if (this.fs.exists(this.templatePath(file))) return;
+    if (this.fs.exists(this.destinationPath(file))) return;
     this.fs.copyTpl(
       this.templatePath(file),
       this.destinationPath(file),

@@ -22,5 +22,5 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "exclude": ["src/app/templates/**/*"]
+  "exclude": ["src/app/templates/**/*", "generators/**/*"]
 }
