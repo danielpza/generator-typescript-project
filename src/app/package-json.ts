@@ -19,7 +19,7 @@ export default () => ({
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  keywords: ["typescript", "jest"],
+  keywords: ["typescript"],
   license: "MIT",
   devDependencies: {
     "@commitlint/cli": "^7.2.1",
