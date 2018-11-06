@@ -10,6 +10,8 @@ module.exports = class extends Generator {
     this.extendJSON("tsconfig-build.json", tsconfigBuildExtend());
     this.extendJSON("package.json", packageJson());
     this.extendList(".gitignore", gitignore());
+    this.copyTpl("README.md");
+    this.copyTpl("LICENSE");
     this.copyTpl("src/index.ts");
     this.copyTpl("src/index.test.ts");
   }
