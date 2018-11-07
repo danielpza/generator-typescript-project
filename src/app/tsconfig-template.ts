@@ -1,4 +1,6 @@
-const base = {
+import { Answers } from "./types";
+
+const baseTsconfig = (options: Answers) => ({
   compilerOptions: {
     /* Basic Options */
     target:
@@ -8,7 +10,10 @@ const base = {
     // "lib": [],                             /* Specify library files to be included in the compilation. */
     // "allowJs": true,                       /* Allow javascript files to be compiled. */
     // "checkJs": true,                       /* Report errors in .js files. */
-    // "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
+    jsx:
+      options.type === "react"
+        ? "react"
+        : undefined /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
     // "declaration": true,                   /* Generates corresponding '.d.ts' file. */
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
     // "sourceMap": true,                     /* Generates corresponding '.map' file. */
@@ -58,9 +63,13 @@ const base = {
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   }
-};
+});
 
-export function tsconfigBuild() {
+const excludeNode = ["**/*.test.ts"];
+const excludeReact = excludeNode.concat(["**/*.test.tsx"]);
+
+export function tsconfigBuild(options: Answers) {
+  const base = baseTsconfig(options);
   return {
     ...base,
     compilerOptions: {
@@ -68,21 +77,22 @@ export function tsconfigBuild() {
       outDir: "./dist",
       rootDir: "./src"
     },
-    exclude: ["**/*.test.ts"]
+    exclude: options.type === "react" ? excludeReact : excludeNode
   };
 }
 
-export function tsconfigBuildExtend() {
+export function tsconfigBuildExtend(options: Answers) {
   return {
     extends: "./tsconfig.json",
     compilerOptions: {
       outDir: "./dist",
       rootDir: "./src"
     },
-    exclude: ["**/*.test.ts"]
+    exclude: options.type === "react" ? excludeReact : excludeNode
   };
 }
 
-export function tsconfigDummy() {
+export function tsconfigDummy(options: Answers) {
+  const base = baseTsconfig(options);
   return base;
 }

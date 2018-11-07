@@ -4,13 +4,10 @@ import uniq from "arr-union";
 import gitignore from "./gitignore";
 import packageJson from "./package-json";
 import { tsconfigDummy, tsconfigBuildExtend } from "./tsconfig-template";
+import { Answers } from "./types";
 
 module.exports = class extends Generator {
-  answers: {
-    name: string;
-    copyright: string;
-    description: string;
-  } = {} as any;
+  answers: Answers = {} as any;
   async prompting() {
     this.answers = (await this.prompt([
       {
@@ -28,21 +25,38 @@ module.exports = class extends Generator {
         type: "string",
         name: "copyright",
         message: "Copyright"
+      },
+      {
+        type: "list",
+        name: "type",
+        message: "Type",
+        choices: [
+          {
+            name: "node module",
+            value: "node"
+          },
+          {
+            name: "react app",
+            value: "react"
+          }
+        ]
       }
     ])) as any;
   }
   writting() {
-    this.extendJSON("tsconfig.json", tsconfigDummy());
-    this.extendJSON("tsconfig-build.json", tsconfigBuildExtend());
-    this.extendJSON(
-      "package.json",
-      packageJson(this.answers.name, this.answers.description)
-    );
+    this.extendJSON("package.json", packageJson(this.answers));
     this.extendList(".gitignore", gitignore());
     this.copyTpl("README.md");
     this.copyTpl("LICENSE");
-    this.copyTpl("src/index.ts");
-    this.copyTpl("src/index.test.ts");
+    this.extendJSON("tsconfig.json", tsconfigDummy(this.answers));
+    if (this.answers.type === "node") {
+      this.extendJSON("tsconfig-build.json", tsconfigBuildExtend(this.answers));
+      this.copyTpl("src/index.ts");
+      this.copyTpl("src/index.test.ts");
+    } else {
+      this.copyTpl("src/index.tsx");
+      this.copyTpl("webpack.config.ts");
+    }
   }
   extendList = (fileRef: string, content: string) => {
     const file = this.destinationPath(fileRef);
