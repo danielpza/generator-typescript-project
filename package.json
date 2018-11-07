@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "arr-union": "^3.1.0",
+    "lodash.kebabcase": "^4.1.1",
     "uniqs": "^2.0.0",
     "yeoman-generator": "^3.1.1"
   },
@@ -33,6 +34,7 @@
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.1.2",
     "@types/arr-union": "^3.1.0",
+    "@types/lodash.kebabcase": "^4.1.4",
     "@types/uniq": "^0.0.27",
     "@types/yeoman-generator": "^3.0.0",
     "husky": "^1.1.3",

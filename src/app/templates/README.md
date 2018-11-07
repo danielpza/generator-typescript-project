@@ -1,3 +1,3 @@
-# app-name
+# <%= name %>
 
-Description
+<%= description %>

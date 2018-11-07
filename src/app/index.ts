@@ -1,3 +1,4 @@
+import dashify from "lodash.kebabcase";
 import Generator = require("yeoman-generator");
 import uniq from "arr-union";
 import gitignore from "./gitignore";
@@ -5,10 +6,38 @@ import packageJson from "./package-json";
 import { tsconfigDummy, tsconfigBuildExtend } from "./tsconfig-template";
 
 module.exports = class extends Generator {
+  answers: {
+    name: string;
+    copyright: string;
+    description: string;
+  } = {} as any;
+  async prompting() {
+    this.answers = (await this.prompt([
+      {
+        type: "string",
+        name: "name",
+        message: "Name",
+        default: dashify(this.appname)
+      },
+      {
+        type: "string",
+        name: "description",
+        message: "Description"
+      },
+      {
+        type: "string",
+        name: "copyright",
+        message: "Copyright"
+      }
+    ])) as any;
+  }
   writting() {
     this.extendJSON("tsconfig.json", tsconfigDummy());
     this.extendJSON("tsconfig-build.json", tsconfigBuildExtend());
-    this.extendJSON("package.json", packageJson());
+    this.extendJSON(
+      "package.json",
+      packageJson(this.answers.name, this.answers.description)
+    );
     this.extendList(".gitignore", gitignore());
     this.copyTpl("README.md");
     this.copyTpl("LICENSE");
@@ -34,12 +63,12 @@ module.exports = class extends Generator {
   extendJSON = (file: string, json: object) => {
     this.fs.extendJSON(this.destinationPath(file), json);
   };
-  copyTpl = (file: string, options: object = {}) => {
+  copyTpl = (file: string) => {
     if (this.fs.exists(this.destinationPath(file))) return;
     this.fs.copyTpl(
       this.templatePath(file),
       this.destinationPath(file),
-      options
+      this.answers
     );
   };
 };

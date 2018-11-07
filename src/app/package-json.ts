@@ -1,4 +1,7 @@
-export default () => ({
+export default (name: string, description: string) => ({
+  name,
+  description,
+  version: "1.0.0",
   main: "dist/index.js",
   types: "dist/index.d.ts",
   files: ["dist"],
