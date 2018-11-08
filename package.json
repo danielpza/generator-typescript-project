@@ -17,7 +17,8 @@
   "scripts": {
     "prebuild": "rm -rf generators",
     "build": "tsc && cp -r src/app/templates generators/app/templates",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release": "standard-version"
   },
   "husky": {
     "hooks": {
