@@ -1,6 +1,6 @@
 {
   "name": "@leddgroup/generator-typescript-project",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Yeoman typescript generator, includes jest, prettier and standard-version",
   "keywords": [
     "typescript",
