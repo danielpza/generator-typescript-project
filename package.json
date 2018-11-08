@@ -1,11 +1,12 @@
 {
-  "name": "generator-typescript-project",
+  "name": "@leddgroup/generator-typescript-project",
   "version": "1.0.0",
   "description": "Yeoman typescript generator, includes jest, prettier and standard-version",
   "keywords": [
     "typescript",
     "conventional-commits",
     "prettier",
+    "react",
     "yeoman-generator"
   ],
   "license": "MIT",
