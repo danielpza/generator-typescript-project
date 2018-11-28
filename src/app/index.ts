@@ -10,37 +10,17 @@ module.exports = class extends Generator {
   answers: Answers = {} as any;
   async prompting() {
     this.answers = (await this.prompt([
-      {
-        type: "string",
-        name: "name",
-        message: "Name",
-        default: dashify(this.appname)
-      },
-      {
-        type: "string",
-        name: "description",
-        message: "Description"
-      },
-      {
-        type: "string",
-        name: "copyright",
-        message: "Copyright"
-      },
-      {
-        type: "list",
-        name: "type",
-        message: "Type",
-        choices: [
-          {
-            name: "node module",
-            value: "node"
-          },
-          {
-            name: "react app",
-            value: "react"
-          }
-        ]
-      }
+      question.string("name", "Name", dashify(this.appname)),
+      question.string("description", "Description"),
+      question.string("copyright", "Copyright"),
+      question.list("type", "Type", [
+        item("node", "node module"),
+        item("react", "react app")
+      ]),
+      question.list("type", "Type", [
+        item("node", "node module"),
+        item("react", "react app")
+      ])
     ])) as any;
   }
   writting() {
@@ -85,4 +65,28 @@ module.exports = class extends Generator {
       this.answers
     );
   };
+};
+
+const item = (name: string, message: string) => ({
+  name: message,
+  value: name
+});
+
+const question = {
+  string: (name: string, message: string, def?: string) => ({
+    type: "string",
+    name,
+    message,
+    default: def
+  }),
+  list: (
+    name: string,
+    message: string,
+    choices: ReturnType<typeof item>[]
+  ) => ({
+    type: "list",
+    name,
+    message,
+    choices
+  })
 };
