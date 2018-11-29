@@ -16,10 +16,6 @@ module.exports = class extends Generator {
       question.list("type", "Type", [
         item("node", "node module"),
         item("react", "react app")
-      ]),
-      question.list("type", "Type", [
-        item("node", "node module"),
-        item("react", "react app")
       ])
     ])) as any;
   }
@@ -35,7 +31,7 @@ module.exports = class extends Generator {
       this.copyTpl("src/index.test.ts");
     } else {
       this.copyTpl("src/index.tsx");
-      this.copyTpl("webpack.config.ts");
+      this.copyTpl("webpack.config.js");
     }
   }
   extendList = (fileRef: string, content: string) => {

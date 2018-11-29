@@ -49,6 +49,7 @@ export default (options: Answers) => {
       "@types/react-dom": "^16.0.9",
       "@types/webpack": "^4.4.17",
       "html-webpack-plugin": "^3.2.0",
+      "html-webpack-include-assets-plugin": "^1.0.6",
       "react-dom": "^16.6.0",
       "ts-loader": "^5.3.0",
       "ts-node": "^7.0.1",
@@ -59,8 +60,8 @@ export default (options: Answers) => {
     } as any;
     base.scripts = {
       ...base.scripts,
-      start: "webpack-dev-server --mode=development",
-      build: "webpack --mode=production"
+      start: "webpack-dev-server --env.NODE_ENV=development",
+      build: "webpack --env.NODE_ENV=production"
     } as any;
   }
   return base;
